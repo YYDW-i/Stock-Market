@@ -107,6 +107,76 @@ window.GMarket.Game = (function () {
     Storage.save(state);
   }
 
+  function cloneState(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function isValidLoadedState(value) {
+  return Boolean(
+    value &&
+    typeof value === "object" &&
+    value.market &&
+    value.portfolio &&
+    value.market.stocks &&
+    value.portfolio.positions
+  );
+}
+
+function normalizeLoadedState(value) {
+  var fresh = createNewState();
+  var loaded = cloneState(value);
+
+  return {
+    day: Number(loaded.day || fresh.day),
+    selectedSymbol: loaded.selectedSymbol || fresh.selectedSymbol,
+    chartMode: loaded.chartMode || fresh.chartMode,
+
+    // 读取远程存档时，不建议恢复自动运行状态，避免刚登录就自动跳天
+    isAutoRunning: false,
+
+    market: loaded.market || fresh.market,
+    portfolio: loaded.portfolio || fresh.portfolio,
+    lastEvents: loaded.lastEvents || [],
+    lastMessage: loaded.lastMessage || "已读取账号存档。"
+  };
+}
+
+function getSaveData() {
+  var current = getState();
+
+  return {
+    version: 1,
+    savedAt: new Date().toISOString(),
+    state: cloneState(current)
+  };
+}
+
+function loadSaveData(saveData) {
+  if (!saveData) {
+    return {
+      success: false,
+      message: "没有可读取的存档。"
+    };
+  }
+
+  var loadedState = saveData.state ? saveData.state : saveData;
+
+  if (!isValidLoadedState(loadedState)) {
+    return {
+      success: false,
+      message: "存档格式不正确，无法读取。"
+    };
+  }
+
+  state = normalizeLoadedState(loadedState);
+  save();
+
+  return {
+    success: true,
+    message: "账号存档读取成功。"
+  };
+}
+
   return {
     init: init,
     getState: getState,
@@ -117,6 +187,9 @@ window.GMarket.Game = (function () {
     toggleAuto: toggleAuto,
     stopAuto: stopAuto,
     reset: reset,
+    save: save,
+    getSaveData: getSaveData,
+    loadSaveData: loadSaveData,
     config: config
   };
 })();
