@@ -22,6 +22,44 @@
       </div>
     </header>
 
+    <section class="auth-panel" id="authPanel">
+      <div class="auth-card" id="guestAuthBox">
+        <div class="auth-title">用户登录</div>
+
+        <div class="auth-form">
+          <input id="authUsername" type="text" placeholder="用户名，3-20位" autocomplete="username">
+          <input id="authPassword" type="password" placeholder="密码，至少6位" autocomplete="current-password">
+
+          <div class="auth-actions">
+            <button id="loginBtn" type="button">登录</button>
+            <button id="registerBtn" type="button">注册</button>
+          </div>
+
+          <p class="auth-message" id="authMessage"></p>
+        </div>
+      </div>
+
+      <div class="auth-card hidden" id="userAuthBox">
+        <div class="auth-title">
+          当前用户：<span id="currentUsername">未登录</span>
+        </div>
+
+        <div class="auth-actions">
+          <button id="saveGameBtn" type="button">保存进度</button>
+          <button id="loadGameBtn" type="button">读取进度</button>
+          <button id="logoutBtn" type="button">退出登录</button>
+        </div>
+
+        <div class="note-box">
+          <textarea id="noteInput" placeholder="写一条交易复盘、学习笔记或自定义记录"></textarea>
+          <button id="addNoteBtn" type="button">保存输入内容</button>
+          <div id="noteList" class="note-list"></div>
+        </div>
+
+        <p class="auth-message" id="userMessage"></p>
+      </div>
+    </section>
+
     <section class="status-grid" id="account-summary"></section>
 
     <main class="main-grid">
