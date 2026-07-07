@@ -1,0 +1,106 @@
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1.45fr) 330px;
+  grid-template-areas:
+    "sidebar chart trade"
+    "sidebar portfolio news"
+    "risk history history";
+  gap: 14px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  padding: 18px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.sidebar { grid-area: sidebar; }
+.chart-panel { grid-area: chart; }
+.trade-panel { grid-area: trade; }
+.portfolio-panel { grid-area: portfolio; }
+.news-panel { grid-area: news; }
+.risk-panel { grid-area: risk; }
+.history-panel { grid-area: history; }
+
+.chart-panel {
+  min-height: 470px;
+}
+
+.chart-header {
+  align-items: flex-start;
+}
+
+@media (max-width: 1180px) {
+  .status-grid {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "chart"
+      "trade"
+      "portfolio"
+      "news"
+      "risk"
+      "history";
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .topbar-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell {
+    width: min(100vw - 16px, 1480px);
+    padding-top: 16px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+}

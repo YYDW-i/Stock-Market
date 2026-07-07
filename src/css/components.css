@@ -1,0 +1,186 @@
+.summary-card {
+  background: var(--panel-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 15px 16px;
+}
+
+.summary-card .label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-bottom: 8px;
+}
+
+.summary-card .value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.stock-list {
+  display: grid;
+  gap: 10px;
+}
+
+.stock-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 14px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.52);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.stock-card:hover,
+.stock-card.active {
+  background: rgba(30, 41, 59, 0.88);
+  border-color: rgba(56, 189, 248, 0.55);
+  transform: translateY(-1px);
+}
+
+.stock-symbol {
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.stock-name,
+.stock-sector,
+.stock-change {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.stock-price {
+  font-weight: 800;
+  text-align: right;
+}
+
+.chart-switch {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.62);
+  border-radius: 999px;
+  padding: 6px 11px;
+}
+
+.chip.active {
+  color: var(--text);
+  border-color: rgba(56, 189, 248, 0.66);
+  background: rgba(14, 116, 144, 0.42);
+}
+
+.chart-caption {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 13px;
+}
+
+.form-group label {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.message {
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.54);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  line-height: 1.6;
+  font-size: 0.86rem;
+}
+
+.mini-help {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  padding: 10px 8px;
+  white-space: nowrap;
+}
+
+th {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+td {
+  font-size: 0.88rem;
+}
+
+.news-list,
+.trade-log,
+.risk-box,
+.lesson-box {
+  display: grid;
+  gap: 10px;
+}
+
+.news-item,
+.trade-item,
+.risk-item,
+.lesson-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.52);
+  padding: 12px;
+}
+
+.news-item h3,
+.lesson-item h3 {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.news-item p,
+.trade-item p,
+.risk-item p,
+.lesson-item p {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.trade-log {
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.empty {
+  color: var(--muted);
+  line-height: 1.7;
+  padding: 10px 0;
+}

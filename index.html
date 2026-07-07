@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GMarket 股票模拟器</title>
+  <link rel="stylesheet" href="src/css/base.css" />
+  <link rel="stylesheet" href="src/css/layout.css" />
+  <link rel="stylesheet" href="src/css/components.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">GMarket Education Lab</p>
+        <h1>股票市场模拟器</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="btn-next-day" class="button primary">推进一天</button>
+        <button id="btn-auto" class="button">自动运行</button>
+        <button id="btn-reset" class="button danger">重置</button>
+      </div>
+    </header>
+
+    <section class="status-grid" id="account-summary"></section>
+
+    <main class="main-grid">
+      <aside class="panel sidebar">
+        <div class="panel-header">
+          <h2>股票池</h2>
+          <span id="market-day" class="tag">第 1 天</span>
+        </div>
+        <div id="stock-list" class="stock-list"></div>
+      </aside>
+
+      <section class="panel chart-panel">
+        <div class="panel-header chart-header">
+          <div>
+            <h2 id="selected-stock-title">价格走势</h2>
+            <p id="selected-stock-desc" class="muted"></p>
+          </div>
+          <div class="chart-switch">
+            <button id="btn-chart-stock" class="chip active">个股</button>
+            <button id="btn-chart-equity" class="chip">账户净值</button>
+          </div>
+        </div>
+        <canvas id="main-chart" width="900" height="360"></canvas>
+        <div id="chart-caption" class="chart-caption"></div>
+      </section>
+
+      <aside class="panel trade-panel">
+        <div class="panel-header">
+          <h2>交易面板</h2>
+          <span id="selected-price" class="price-pill">--</span>
+        </div>
+        <div class="form-group">
+          <label for="order-side">方向</label>
+          <select id="order-side">
+            <option value="buy">买入</option>
+            <option value="sell">卖出</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="order-qty">数量</label>
+          <input id="order-qty" type="number" min="1" step="1" value="100" />
+        </div>
+        <button id="btn-order" class="button primary full">提交交易</button>
+        <div id="order-message" class="message"></div>
+        <div class="mini-help">
+          模拟器按当前市场价格即时成交。手续费默认为 0.1%，用于帮助理解交易成本。
+        </div>
+      </aside>
+
+      <section class="panel portfolio-panel">
+        <div class="panel-header">
+          <h2>持仓</h2>
+          <span id="exposure-tag" class="tag">仓位 --</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>数量</th>
+                <th>成本</th>
+                <th>现价</th>
+                <th>盈亏</th>
+              </tr>
+            </thead>
+            <tbody id="portfolio-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel news-panel">
+        <div class="panel-header">
+          <h2>市场新闻</h2>
+          <span class="tag">事件驱动</span>
+        </div>
+        <div id="news-list" class="news-list"></div>
+      </section>
+
+      <section class="panel risk-panel">
+        <div class="panel-header">
+          <h2>风险观察</h2>
+          <span class="tag">教育模式</span>
+        </div>
+        <div id="risk-box" class="risk-box"></div>
+        <div id="lesson-box" class="lesson-box"></div>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="panel-header">
+          <h2>交易记录</h2>
+          <span id="trade-count" class="tag">0 笔</span>
+        </div>
+        <div id="trade-log" class="trade-log"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="src/js/data/stocks.js"></script>
+  <script src="src/js/data/events.js"></script>
+  <script src="src/js/data/lessons.js"></script>
+
+  <script src="src/js/core/utils.js"></script>
+  <script src="src/js/core/storage.js"></script>
+  <script src="src/js/core/marketEngine.js"></script>
+  <script src="src/js/core/portfolio.js"></script>
+  <script src="src/js/core/risk.js"></script>
+  <script src="src/js/core/game.js"></script>
+
+  <script src="src/js/ui/chart.js"></script>
+  <script src="src/js/ui/renderer.js"></script>
+  <script src="src/js/main.js"></script>
+</body>
+</html>
