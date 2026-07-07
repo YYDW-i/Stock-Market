@@ -6,3 +6,14 @@ build/
 .vscode/
 .idea/
 *.log
+
+# Node backend
+backend/node_modules/
+
+# Local environment
+backend/.env
+
+# Local database, never upload
+backend/data/*.json
+backend/data/*.tmp
+!backend/data/.gitkeep
