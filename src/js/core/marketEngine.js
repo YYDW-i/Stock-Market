@@ -118,6 +118,39 @@ window.GMarket.MarketEngine = (function () {
     return events;
   }
 
+  function stepMoment(market, day, slotIndex, totalSlots) {
+    var relativeChanges = [];
+
+    listStocks(market).forEach(function (stock) {
+      var intradayScale = 1 / Math.sqrt(totalSlots || 6);
+
+      var randomness = Utils.normalRandom() * stock.volatility * intradayScale * 0.55;
+      var momentum = averageRecentReturn(stock, 3) * 0.08;
+      var sentimentEffect = (stock.sentiment * 0.004) + (market.marketSentiment * 0.003);
+
+      var rawReturn = randomness + momentum + sentimentEffect;
+      var boundedReturn = Utils.clamp(rawReturn, -0.045, 0.045);
+
+      stock.previousPrice = stock.price;
+      stock.price = Math.max(1, Utils.round(stock.price * (1 + boundedReturn), 2));
+      stock.returns.push(boundedReturn);
+      stock.history.push(stock.price);
+      stock.volume = Math.max(8000, Math.round(randomVolume(stock.price) * (1 + Math.abs(boundedReturn) * 5)));
+
+      stock.sentiment *= 0.96;
+
+      relativeChanges.push(stock.price / stock.initialPrice);
+    });
+
+    market.marketSentiment *= 0.97;
+
+    var avgRelative = Utils.sum(relativeChanges) / relativeChanges.length;
+    var newIndex = Utils.round(1000 * avgRelative, 2);
+
+    market.indexHistory.push(newIndex || market.indexHistory[market.indexHistory.length - 1]);
+
+    return [];
+  }
   function averageRecentReturn(stock, count) {
     var returns = stock.returns.slice(-count);
     if (!returns.length) return 0;
@@ -129,6 +162,7 @@ window.GMarket.MarketEngine = (function () {
     getPrice: getPrice,
     getStock: getStock,
     listStocks: listStocks,
-    stepDay: stepDay
+    stepDay: stepDay,
+    stepMoment: stepMoment
   };
 })();

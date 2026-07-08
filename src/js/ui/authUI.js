@@ -35,6 +35,9 @@ window.GMarket.AuthUI = (function () {
 
     els.authMessage = document.getElementById("authMessage");
     els.userMessage = document.getElementById("userMessage");
+
+    els.authPage = document.getElementById("authPage");
+    els.appPage = document.getElementById("appPage");
   }
 
   function bindEvents() {
@@ -209,16 +212,46 @@ window.GMarket.AuthUI = (function () {
   }
 
   function showGuest() {
-    els.guestAuthBox.classList.remove("hidden");
-    els.userAuthBox.classList.add("hidden");
+    if (els.authPage) {
+      els.authPage.classList.remove("hidden");
+    }
+
+    if (els.appPage) {
+      els.appPage.classList.add("hidden");
+    }
+
+    if (els.guestAuthBox) {
+      els.guestAuthBox.classList.remove("hidden");
+    }
+
+    if (els.userAuthBox) {
+      els.userAuthBox.classList.add("hidden");
+    }
   }
 
   function showUser(user) {
-    els.guestAuthBox.classList.add("hidden");
-    els.userAuthBox.classList.remove("hidden");
+    if (els.authPage) {
+      els.authPage.classList.add("hidden");
+    }
+
+    if (els.appPage) {
+      els.appPage.classList.remove("hidden");
+    }
+
+    if (els.guestAuthBox) {
+      els.guestAuthBox.classList.add("hidden");
+    }
+
+    if (els.userAuthBox) {
+      els.userAuthBox.classList.remove("hidden");
+    }
 
     if (els.currentUsername) {
       els.currentUsername.textContent = user.username;
+    }
+
+    if (window.GMarket.Renderer && typeof window.GMarket.Renderer.render === "function") {
+      window.GMarket.Renderer.render();
     }
   }
 

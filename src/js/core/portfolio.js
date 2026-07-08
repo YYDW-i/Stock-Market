@@ -22,7 +22,7 @@ window.GMarket.Portfolio = (function () {
     };
   }
 
-  function buy(portfolio, symbol, quantity, price, day) {
+  function buy(portfolio, symbol, quantity, price, day, timeLabel) {
     quantity = Math.floor(Number(quantity));
     if (!quantity || quantity <= 0) {
       return fail("交易数量必须是正整数。");
@@ -50,6 +50,7 @@ window.GMarket.Portfolio = (function () {
 
     recordTrade(portfolio, {
       day: day,
+      timeLabel: timeLabel,
       side: "buy",
       symbol: symbol,
       quantity: quantity,
@@ -61,7 +62,7 @@ window.GMarket.Portfolio = (function () {
     return ok("买入成功：" + symbol + " × " + quantity + "，成交价 " + Utils.formatMoney(price) + "。");
   }
 
-  function sell(portfolio, symbol, quantity, price, day) {
+  function sell(portfolio, symbol, quantity, price, day, timeLabel) {
     quantity = Math.floor(Number(quantity));
     if (!quantity || quantity <= 0) {
       return fail("交易数量必须是正整数。");
@@ -87,6 +88,7 @@ window.GMarket.Portfolio = (function () {
 
     recordTrade(portfolio, {
       day: day,
+      timeLabel: timeLabel,
       side: "sell",
       symbol: symbol,
       quantity: quantity,
@@ -102,6 +104,7 @@ window.GMarket.Portfolio = (function () {
     portfolio.trades.unshift({
       id: Date.now() + "-" + Math.random().toString(16).slice(2),
       day: trade.day,
+      timeLabel: trade.timeLabel || ("第 " + trade.day + " 天"),
       side: trade.side,
       symbol: trade.symbol,
       quantity: trade.quantity,
@@ -111,9 +114,9 @@ window.GMarket.Portfolio = (function () {
     });
   }
 
-  function placeOrder(portfolio, side, symbol, quantity, price, day) {
-    if (side === "buy") return buy(portfolio, symbol, quantity, price, day);
-    if (side === "sell") return sell(portfolio, symbol, quantity, price, day);
+  function placeOrder(portfolio, side, symbol, quantity, price, day, timeLabel) {
+    if (side === "buy") return buy(portfolio, symbol, quantity, price, day, timeLabel);
+    if (side === "sell") return sell(portfolio, symbol, quantity, price, day, timeLabel);
     return fail("未知交易方向。");
   }
 

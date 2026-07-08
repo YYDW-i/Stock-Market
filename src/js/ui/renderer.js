@@ -86,16 +86,15 @@ window.GMarket.Renderer = (function () {
   function startAuto() {
     stopAuto();
     autoTimer = window.setInterval(function () {
-      var state = Game.getState();
-      if (state.day >= Game.config.maxDay) {
-        Game.stopAuto();
-        stopAuto();
-        render();
+      var state = window.GMarket.Game.getState();
+
+      if (!state.isAutoRunning) {
         return;
       }
-      Game.nextDay();
-      render();
-    }, 1100);
+
+      window.GMarket.Game.nextDay();
+      window.GMarket.Renderer.render();
+    }, 1800);
   }
 
   function stopAuto() {
